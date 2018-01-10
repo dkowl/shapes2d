@@ -1,4 +1,5 @@
 #include "Shapes2D.h"
+#include "List.h"
 
 using namespace Shapes2D;
 
@@ -19,13 +20,17 @@ int main() {
 	auto circle = MakeCircle(0.f, 0.f, 5.f);
 
 
-	vector<Shape<float>*> shapes;
+	/*vector<Shape<float>*> shapes;
 	shapes.push_back(&square);
 	shapes.push_back(&rectangle);
 	shapes.push_back(&triangle);
 	shapes.push_back(&trapezoid);
 	shapes.push_back(&parallelogram);
-	shapes.push_back(&circle);
+	shapes.push_back(&circle);*/
+
+	List<Shape<float>*> shapes;
+	shapes.Add(&square);
+
 
 
 	for (auto& shape : shapes) {
