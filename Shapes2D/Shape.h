@@ -37,8 +37,8 @@ namespace Shapes2D {
 			ParamList pl = { 
 				{ "Area", Area() },
 				{ "Perimeter", Perimeter() }, 
-				{ "Center X", centerPos.x },
-				{ "Center Y", centerPos.y }
+				{ "Center x", centerPos.x },
+				{ "Center y", centerPos.y }
 			};
 			return pl;
 		}

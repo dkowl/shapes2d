@@ -2,15 +2,28 @@
 
 using namespace Shapes2D;
 
-int main() {
-	/*Square<float> square(Vector2<float>(0, 0), 5);
-	square.Display();
-	square.Move(5, 5);
-	square.Scale(3);
-	square.Display();*/
+void TestShape(Shape<float> &shape) {
+	shape.Display();
+	shape.Move(5, 5);
+	shape.Display();
+	shape.Scale(3);
+	shape.Display();
+}
 
-	Rectangle<float> rectangle(Vector2<float>(0, 0), 3, 5);
-	rectangle.Display();
+int main() {
+	Square<float> square = Square<float>(Vector2<float>(0, 0), 5);
+	Rectangle<float> rectangle = Rectangle<float>(Vector2<float>(0, 0), 3, 5);
+	Triangle<float> triangle = Triangle<float>(Vector2<float>(15, 15), Vector2<float>(47, 40), Vector2<float>(65, 20));
+
+	vector<Shape<float>*> shapes;
+	shapes.push_back(&square);
+	shapes.push_back(&rectangle);
+	shapes.push_back(&triangle);
+
+
+	for (auto& shape : shapes) {
+		TestShape(*shape);
+	}
 
 	system("PAUSE");
 	return 0;

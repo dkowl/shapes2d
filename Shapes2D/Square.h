@@ -8,8 +8,8 @@ namespace Shapes2D {
 	public:
 		using Shape::Move;
 
-		Square(Vector2 p, TFloat a) :
-			p(p),
+		Square(Vector2 A, TFloat a) :
+			A(A),
 			a(a)
 		{
 		}
@@ -21,11 +21,11 @@ namespace Shapes2D {
 			return a * 4;
 		}
 		Vector2 CenterPosition() override {
-			return p;
+			return A;
 		}
 
 		void Move(Vector2 v) override {
-			p += v;
+			A += v;
 		}
 		void Scale(TFloat x) override {
 			a *= x;
@@ -41,7 +41,7 @@ namespace Shapes2D {
 		}
 
 	private:
-		Vector2 p;
+		Vector2 A;
 		TFloat a;
 	};
 }

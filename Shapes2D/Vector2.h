@@ -32,6 +32,19 @@ namespace Shapes2D {
 			y -= b.y;
 			return *this;
 		}
+
+		T Magnitude() {
+			return std::sqrt(x*x + y*y);
+		}
+
+		T Distance(Vector2 b) {
+			return (*this - b).Magnitude();
+		}
+
+		void Scale(Vector2 origin, T factor) {
+			x += (x - origin.x) * (factor - 1);
+			y += (y - origin.y) * (factor - 1);
+		}
 	};
 }
 
