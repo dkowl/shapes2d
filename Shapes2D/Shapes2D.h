@@ -4,3 +4,4 @@
 #include "Triangle.h"
 #include "Trapezoid.h"
 #include "Parallelogram.h"
+#include "Circle.h"

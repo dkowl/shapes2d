@@ -50,5 +50,7 @@ namespace Shapes2D {
 			cout << endl;
 		}
 	};
+
+	static const double PI = 3.14159265;
 }
 
