@@ -56,6 +56,11 @@ namespace Shapes2D {
 		Vector2 B;
 		Vector2 C;
 	};
+
+	template<typename TFloat>
+	static Triangle<TFloat> MakeTriangle(TFloat Ax, TFloat Ay, TFloat Bx, TFloat By, TFloat Cx, TFloat Cy) {
+		return Triangle<TFloat>(Vector2<TFloat>(Ax, Ay), Vector2<TFloat>(Bx, By), Vector2<TFloat>(Cx, Cy));
+	}
 }
 
 

@@ -48,4 +48,9 @@ namespace Shapes2D {
 		TFloat a;
 		TFloat b;
 	};
+
+	template<typename TFloat>
+	static Rectangle<TFloat> MakeRectangle(TFloat Ax, TFloat Ay, TFloat a, TFloat b) {
+		return Rectangle<TFloat>(Vector2<TFloat>(Ax, Ay), a, b);
+	}
 }

@@ -69,4 +69,9 @@ namespace Shapes2D {
 		Vector2 C;
 		TFloat a;
 	};
+
+	template<typename TFloat>
+	static Trapezoid<TFloat> MakeTrapezoid(TFloat Ax, TFloat Ay, TFloat Bx, TFloat By, TFloat Cx, TFloat Cy, TFloat a) {
+		return Trapezoid<TFloat>(Vector2<TFloat>(Ax, Ay), Vector2<TFloat>(Bx, By), Vector2<TFloat>(Cx, Cy), a);
+	}
 }

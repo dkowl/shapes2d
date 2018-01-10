@@ -45,6 +45,12 @@ namespace Shapes2D {
 			x += (x - origin.x) * (factor - 1);
 			y += (y - origin.y) * (factor - 1);
 		}
+
 	};
+	
+	template<typename T>
+	static Vector2<T> MakeVector2(T x, T y) {
+		return Vector2<T>(x, y);
+	}
 }
 

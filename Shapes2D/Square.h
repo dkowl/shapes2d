@@ -44,4 +44,9 @@ namespace Shapes2D {
 		Vector2 A;
 		TFloat a;
 	};
+
+	template<typename TFloat>
+	static Square<TFloat> MakeSquare(TFloat Ax, TFloat Ay, TFloat a) {
+		return Square<TFloat>(Vector2<TFloat>(Ax, Ay), a);
+	}
 }

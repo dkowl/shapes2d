@@ -11,10 +11,10 @@ void TestShape(Shape<float> &shape) {
 }
 
 int main() {
-	Square<float> square = Square<float>(Vector2<float>(0, 0), 5);
-	Rectangle<float> rectangle = Rectangle<float>(Vector2<float>(0, 0), 3, 5);
-	Triangle<float> triangle = Triangle<float>(Vector2<float>(15, 15), Vector2<float>(47, 40), Vector2<float>(65, 20));
-	Trapezoid<float> trapezoid = Trapezoid<float>(Vector2<float>(15, 15), Vector2<float>(47, 40), Vector2<float>(65, 20), 5);
+	auto square = MakeSquare(0.f, 0.f, 5.f);
+	auto rectangle = MakeRectangle(0.f, 0.f, 3.f, 5.f);
+	auto triangle = MakeTriangle(15.f, 15.f, 47.f, 40.f, 65.f, 20.f);
+	auto trapezoid = MakeTrapezoid(15.f, 15.f, 47.f, 40.f, 65.f, 20.f, 5.f);
 
 
 	vector<Shape<float>*> shapes;
