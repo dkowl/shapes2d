@@ -128,7 +128,9 @@
     <ClInclude Include="Shapes2D.h" />
     <ClInclude Include="ShapeStore.h" />
     <ClInclude Include="Square.h" />
+    <ClInclude Include="Trapezoid.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

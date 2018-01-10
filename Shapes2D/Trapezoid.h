@@ -25,7 +25,11 @@ namespace Shapes2D {
 			return A.Distance(B) + B.Distance(C) * 2 + a;
 		}
 		Vector2 CenterPosition() override {
-			return Vector2((A.x + B.x + C.x) / 3, (A.y + B.y + C.y) / 3);
+			TFloat b = A.Distance(B);
+			return Vector2(
+				A.x + (a*a + a*b + b*b) / (3 * (a + b)),
+				A.y + Height() * (a + 2 * b) / (3 * (a + b))
+				);
 		}
 		TFloat Height() {
 			return DistanceFromPointToLine(C, A, B);
@@ -41,10 +45,11 @@ namespace Shapes2D {
 			A.Scale(center, x);
 			B.Scale(center, x);
 			C.Scale(center, x);
+			a *= x;
 		}
 
 		string Name() override {
-			return "Triangle";
+			return "Trapezoid";
 		}
 		ParamList Params() override {
 			ParamList result = Shape::Params();
@@ -54,6 +59,7 @@ namespace Shapes2D {
 			result.emplace_back(pair<string, TFloat>{"Point B y", B.y});
 			result.emplace_back(pair<string, TFloat>{"Point C x", C.x});
 			result.emplace_back(pair<string, TFloat>{"Point C y", C.y});
+			result.emplace_back(pair<string, TFloat>{"Side length a", a});
 			return result;
 		}
 
