@@ -3,3 +3,4 @@
 #include "Rectangle.h"
 #include "Triangle.h"
 #include "Trapezoid.h"
+#include "Parallelogram.h"

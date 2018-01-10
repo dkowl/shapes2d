@@ -18,13 +18,13 @@ namespace Shapes2D {
 		}
 		//Start here
 		TFloat Area() override {
-			return std::abs(A.x*(B.y - C.y) + B.x*(C.y - A.y) + C.x*(A.y - B.y)) / 2;
+			return std::abs(A.x*(B.y - C.y) + B.x*(C.y - A.y) + C.x*(A.y - B.y));
 		}
 		TFloat Perimeter() override {
-			return A.Distance(B) + B.Distance(C) + C.Distance(A);
+			return (A.Distance(B) + B.Distance(C)) * 2;
 		}
 		Vector2 CenterPosition() override {
-			return Vector2((A.x + B.x + C.x) / 3, (A.y + B.y + C.y) / 3);
+			return A.Average(C);
 		}
 
 		void Move(Vector2 v) override {
@@ -40,7 +40,7 @@ namespace Shapes2D {
 		}
 
 		string Name() override {
-			return "Triangle";
+			return "Parallelogram";
 		}
 		ParamList Params() override {
 			ParamList result = Shape::Params();

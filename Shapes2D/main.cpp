@@ -15,6 +15,7 @@ int main() {
 	auto rectangle = MakeRectangle(0.f, 0.f, 3.f, 5.f);
 	auto triangle = MakeTriangle(15.f, 15.f, 47.f, 40.f, 65.f, 20.f);
 	auto trapezoid = MakeTrapezoid(15.f, 15.f, 47.f, 40.f, 65.f, 20.f, 5.f);
+	auto parallelogram = MakeParallelogram(15.f, 15.f, 47.f, 40.f, 65.f, 20.f);
 
 
 	vector<Shape<float>*> shapes;
@@ -22,6 +23,7 @@ int main() {
 	shapes.push_back(&rectangle);
 	shapes.push_back(&triangle);
 	shapes.push_back(&trapezoid);
+	shapes.push_back(&parallelogram);
 
 
 	for (auto& shape : shapes) {

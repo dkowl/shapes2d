@@ -37,13 +37,17 @@ namespace Shapes2D {
 			return std::sqrt(x*x + y*y);
 		}
 
-		T Distance(Vector2 b) {
+		T Distance(const Vector2 &b) {
 			return (*this - b).Magnitude();
 		}
 
-		void Scale(Vector2 origin, T factor) {
+		void Scale(const Vector2 &origin, const T &factor) {
 			x += (x - origin.x) * (factor - 1);
 			y += (y - origin.y) * (factor - 1);
+		}
+
+		Vector2 Average(const Vector2 &b) {
+			return Vector2((x + b.x) / 2, (y + b.y) / 2);
 		}
 
 	};
