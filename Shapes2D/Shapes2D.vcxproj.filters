@@ -41,5 +41,8 @@
     <ClInclude Include="Shapes2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
