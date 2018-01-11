@@ -17,6 +17,15 @@ public:
 	{
 	}
 
+	~List() {
+		Node* currentNode = head;
+		while (currentNode != nullptr) {
+			Node* nextNode = currentNode->next;
+			delete currentNode;
+			currentNode = nextNode;
+		}
+	}
+
 	void Add(const T &value) {
 		Node *newNode = new Node(value);
 		if (head == nullptr) {

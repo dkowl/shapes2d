@@ -119,7 +119,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ShapeStore.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +129,7 @@
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Shapes2D.h" />
     <ClInclude Include="ShapeStore.h" />
+    <ClInclude Include="ShapeWizard.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="Trapezoid.h" />
     <ClInclude Include="Triangle.h" />
