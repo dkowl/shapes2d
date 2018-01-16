@@ -16,6 +16,9 @@
     <Filter Include="Header Files\Shapes">
       <UniqueIdentifier>{3cbe1162-a2f0-40f3-95ea-60c398165f28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Signal">
+      <UniqueIdentifier>{f1b52f84-837a-4c27-a1f7-e867b3ba2a86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="ShapeWizard.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Signal\Signal.h">
+      <Filter>Header Files\Signal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

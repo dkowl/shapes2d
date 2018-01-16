@@ -1,4 +1,5 @@
 #include "ShapeStore.h"
+#include "Signal\Signal.h"
 
 using namespace Shapes2D;
 
@@ -33,7 +34,12 @@ int main() {
 	}*/
 
 	ShapeStore<float> shapeStore;
-	shapeStore.AddShape(SQUARE);
+
+	Signal<> signal;
+	signal.Connect([&]() {
+		shapeStore.AddShape(SQUARE);
+	});
+	signal.Emit();
 
 
 	system("PAUSE");
