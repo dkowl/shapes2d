@@ -19,6 +19,9 @@
     <Filter Include="Header Files\Signal">
       <UniqueIdentifier>{f1b52f84-837a-4c27-a1f7-e867b3ba2a86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TextUI">
+      <UniqueIdentifier>{d004c62d-39a4-485c-a2b2-bc1fe19f33e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -67,6 +70,18 @@
     </ClInclude>
     <ClInclude Include="Signal\Signal.h">
       <Filter>Header Files\Signal</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI\Menu.h">
+      <Filter>Header Files\TextUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI\Widget.h">
+      <Filter>Header Files\TextUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI\Button.h">
+      <Filter>Header Files\TextUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI\MenuController.h">
+      <Filter>Header Files\TextUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

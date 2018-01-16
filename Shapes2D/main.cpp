@@ -1,7 +1,10 @@
 #include "ShapeStore.h"
 #include "Signal\Signal.h"
+#include "TextUI\MenuController.h"
+#include "TextUI\Button.h"
 
 using namespace Shapes2D;
+using namespace TextUI;
 
 void TestShape(Shape<float> &shape) {
 	shape.Display();
@@ -33,14 +36,34 @@ int main() {
 		TestShape(*shape);
 	}*/
 
-	ShapeStore<float> shapeStore;
+	/*ShapeStore<float> shapeStore;
 
 	Signal<> signal;
 	signal.Connect([&]() {
 		shapeStore.AddShape(SQUARE);
 	});
-	signal.Emit();
+	signal.Emit();*/
 
+	/*MenuController menuController(
+		vector<Menu>{
+		Menu(
+			"Main",
+			Menu::WidgetList{
+				shared_ptr<Widget>()
+			}
+			)
+		}
+	);*/
+	//Menu menu(
+	//	"Main",
+	Menu::WidgetList widgetList{
+		shared_ptr<Widget>(new Button("Button 1", []() {cout << "lol"; })),
+		shared_ptr<Widget>(new Button("Button 2", []() {cout << "lol2"; })),
+		shared_ptr<Widget>(new Button("Button 3", []() {cout << "lol3"; })),
+	};
+	//);
+	Menu menu("Main", widgetList);
+	menu.Display();
 
 	system("PAUSE");
 	return 0;

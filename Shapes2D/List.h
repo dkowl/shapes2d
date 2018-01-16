@@ -1,20 +1,39 @@
 #pragma once
 
+#include <initializer_list>
+
 template<typename T>
 class List {
 
 	class Node;
-	class Iterator;
 
 	Node *head;
 	Node *tail;
 
 public:
 
+	class Iterator;
+
 	List() :
 		head(nullptr),
 		tail(nullptr)
 	{
+	}
+
+	List(std::initializer_list<T> initList) :
+		List()
+	{
+		for (T elem : initList) {
+			Add(elem);
+		}
+	}
+
+	List(List& other) :
+		List()
+	{
+		for (auto elem : other) {
+			Add(elem);
+		}
 	}
 
 	~List() {
@@ -75,6 +94,12 @@ public:
 			return *this;
 		}
 
+		Iterator operator++(int) {
+			Iterator temp(*this);
+			operator++();
+			return temp;
+		}
+
 		Iterator& operator--() {
 			if (currentNode != list->head) {
 				if (currentNode == nullptr) {
@@ -85,6 +110,12 @@ public:
 				}
 			}
 			return *this;
+		}
+
+		Iterator operator--(int) {
+			Iterator temp(*this);
+			operator--();
+			return temp;
 		}
 
 		T& operator *() {

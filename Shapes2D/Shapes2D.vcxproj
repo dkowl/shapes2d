@@ -132,6 +132,10 @@
     <ClInclude Include="ShapeWizard.h" />
     <ClInclude Include="Signal\Signal.h" />
     <ClInclude Include="Square.h" />
+    <ClInclude Include="TextUI\Button.h" />
+    <ClInclude Include="TextUI\Menu.h" />
+    <ClInclude Include="TextUI\MenuController.h" />
+    <ClInclude Include="TextUI\Widget.h" />
     <ClInclude Include="Trapezoid.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Utils.h" />

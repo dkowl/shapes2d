@@ -6,6 +6,7 @@
 template<typename... Args>
 class Signal {
 
+public:
 	typedef std::function<void(Args...)> Slot;
 
 private:
