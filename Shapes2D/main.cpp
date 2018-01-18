@@ -26,8 +26,9 @@ public:
 		Menu(
 			"Main",
 			Menu::WidgetList{
-				shared_ptr<Widget>(new Button("Add Shape",  [=]() {GoToMenu("Add Shape"); })),
-				shared_ptr<Widget>(new Button("Display Shapes", [=]() {DisplayShapes(); })),
+				shared_ptr<Widget>(new Button("Add",  [=]() {GoToMenu("Add Shape"); })),
+				shared_ptr<Widget>(new Button("Delete",  [=]() {GoToDeleteMenu(); })),
+				shared_ptr<Widget>(new Button("Display", [=]() {DisplayShapes(); })),
 				shared_ptr<Widget>(new Button("Exit", [=]() {Stop(); }))
 			}
 		),
@@ -57,6 +58,17 @@ public:
 
 	void GoToMenu(string menuName) {
 		menuController.SwitchMenu(menuName);
+	}
+
+	void GoToDeleteMenu() {
+		Menu::WidgetList widgetList;
+		for (auto&& shape : shapeStore.GetShapeList()) {
+			widgetList.Add(shared_ptr<Widget>(new Button(shape.shape->Name(), [=]() {shapeStore.DeleteShape(shape); })));
+		}
+		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		Menu menu("Delete", widgetList);
+		menuController.AddOrReplaceMenu(menu);
+		menuController.SwitchMenu("Delete");
 	}
 
 	void AddShape(ShapeType type) {

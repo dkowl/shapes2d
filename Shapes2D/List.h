@@ -75,6 +75,23 @@ public:
 		}
 	}
 
+	void Delete(const T &value) {
+		Node *currentNode = head;
+		while (currentNode != nullptr) {
+			if (currentNode->value == value) {
+				if (currentNode == head) head = currentNode->next;
+				if (currentNode == tail) tail = currentNode->prev;
+				if (currentNode->prev != nullptr && currentNode->next != nullptr) {
+					currentNode->prev->next = currentNode->next;
+					currentNode->next->prev = currentNode->prev;
+				}
+				delete currentNode;
+				break;
+			}
+			currentNode = currentNode->next;
+		}
+	}
+
 	void Clear() {
 		Node* currentNode = head;
 		while (currentNode != nullptr) {
@@ -82,6 +99,8 @@ public:
 			delete currentNode;
 			currentNode = nextNode;
 		}
+		head = nullptr;
+		tail = nullptr;
 	}
 
 	Iterator<true> begin() const {

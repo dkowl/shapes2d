@@ -9,12 +9,18 @@ namespace Shapes2D {
 
 		class ListNode;
 
-		List<ListNode> list;
+		typedef List<ListNode> ShapeList;
+
+		ShapeList list;
 
 	public:	
 
 		void AddShape(ShapeType shapeType) {
 			list.Add(ListNode(ShapeWizard<TFloat>::CreateShape(shapeType), shapeType));
+		}
+
+		void DeleteShape(const ListNode& shape) {
+			list.Delete(shape);
 		}
 
 		void DisplayShapes() {
@@ -23,16 +29,35 @@ namespace Shapes2D {
 			}
 		}
 
+		const ShapeList& GetShapeList() {
+			return list;
+		}
+
 		class ListNode {
 		public:
-			ListNode(Shape<TFloat> *shape, ShapeType shapeType) :
-				shape(shape),
-				shapeType(shapeType) 
-			{
-			}
 
 			Shape<TFloat> *shape;
 			ShapeType shapeType;
+			int id;
+
+			ListNode(Shape<TFloat> *shape, ShapeType shapeType) :
+				shape(shape),
+				shapeType(shapeType),
+				id(GetNextId())
+			{
+			}
+
+			bool operator==(const ListNode &other) const {
+				return id == other.id;
+			}
+
+		private:
+
+			static int GetNextId() {
+				static int id = -1;
+				id++;
+				return id;
+			}
 		};		
 	};
 }

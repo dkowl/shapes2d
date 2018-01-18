@@ -57,6 +57,10 @@ namespace TextUI {
 			currentMenuName = menuName;
 		}
 
+		void AddOrReplaceMenu(Menu &menu) {
+			menus[menu.Name()] = menu;
+		}
+
 	private:
 		void ProcessInput(char c) {
 			//cout << (int)c << endl;

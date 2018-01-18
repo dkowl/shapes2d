@@ -119,9 +119,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App\ShapeButton.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="App\ShapeButton.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Parallelogram.h" />

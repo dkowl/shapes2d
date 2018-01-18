@@ -22,10 +22,16 @@
     <Filter Include="Header Files\TextUI">
       <UniqueIdentifier>{d004c62d-39a4-485c-a2b2-bc1fe19f33e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\App">
+      <UniqueIdentifier>{bec20a86-efea-465f-9486-ef71207b0f47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="App\ShapeButton.cpp">
+      <Filter>Header Files\App</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="TextUI\MenuController.h">
       <Filter>Header Files\TextUI</Filter>
+    </ClInclude>
+    <ClInclude Include="App\ShapeButton.h">
+      <Filter>Header Files\App</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
