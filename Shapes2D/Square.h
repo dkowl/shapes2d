@@ -31,6 +31,14 @@ namespace Shapes2D {
 			a *= x;
 		}
 
+		void Save(ostream &os) {
+			os << A << " " << a << " ";
+		}
+
+		void Load(istream &is) {
+			is >> A >> a;
+		}
+
 		string Name() override {
 			return "Square";
 		}

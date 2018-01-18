@@ -9,6 +9,8 @@ using std::endl;
 using std::vector;
 using std::pair;
 using std::string;
+using std::ostream;
+using std::istream;
 
 namespace Shapes2D {
 	template<typename TFloat>
@@ -28,6 +30,9 @@ namespace Shapes2D {
 		}
 
 		virtual void Scale(TFloat x) = 0;
+
+		//virtual void Save(ostream &os) = 0;
+		//virtual void Load(istream &is) = 0;
 
 		virtual string Name() {
 			return "Shape";

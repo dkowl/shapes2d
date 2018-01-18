@@ -7,6 +7,8 @@ namespace Shapes2D {
 		T x;
 		T y;
 
+		Vector2() { }
+
 		Vector2(T x, T y) :
 			x(x),
 			y(y)
@@ -55,6 +57,20 @@ namespace Shapes2D {
 	template<typename T>
 	static Vector2<T> MakeVector2(T x, T y) {
 		return Vector2<T>(x, y);
+	}
+
+	template<typename T>
+	std::ostream& operator<<(std::ostream& os, const Vector2<T> &v)
+	{
+		os << v.x << " " << v.y;
+		return os;
+	}
+
+	template<typename T>
+	std::istream& operator>>(std::istream& is, Vector2<T> &v)
+	{
+		is >> v.x >> v.y;
+		return is;
 	}
 }
 

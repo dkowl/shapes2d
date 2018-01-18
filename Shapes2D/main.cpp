@@ -32,6 +32,7 @@ public:
 				shared_ptr<Widget>(new Button("Display", [=]() {DisplayShapes(); })),
 				shared_ptr<Widget>(new Button("Display Selected", [=]() {GoToMenu("Display Selected"); })),
 				shared_ptr<Widget>(new Button("Move", [=]() {GoToMoveMenu(); })),
+				shared_ptr<Widget>(new Button("Scale", [=]() {GoToScaleMenu(); })),
 				shared_ptr<Widget>(new Button("Exit", [=]() {Stop(); }))
 			}
 		),
@@ -104,6 +105,22 @@ public:
 		menuController.SwitchMenu("Move");
 	}
 
+	void GoToScaleMenu() {
+		Menu::WidgetList widgetList;
+		for (auto&& shape : shapeStore.GetShapeList()) {
+			widgetList.Add(shared_ptr<Widget>(new ShapeButton(shape.shape->Name(), [=]() {
+				float x;
+				cout << "Scale factor: ";
+				cin >> x;
+				shapeStore.ScaleShape(shape, x);
+			}, *(shape.shape), false)));
+		}
+		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		Menu menu("Move", widgetList);
+		menuController.AddOrReplaceMenu(menu);
+		menuController.SwitchMenu("Move");
+	}
+
 	void AddShape(ShapeType type) {
 		shapeStore.AddShape(type);
 	}
@@ -123,8 +140,13 @@ public:
 
 int main() {
 
-	App app;
-	app.Start();
+	/*App app;
+	app.Start();*/
 
+	Square<float> square = MakeSquare(1.0f, 2.0f, 3.0f);
+	square.Load(cin);
+	square.Save(cout);
+
+	system("PAUSE");
 	return 0;
 }
