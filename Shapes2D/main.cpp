@@ -3,9 +3,12 @@
 #include "TextUI\MenuController.h"
 #include "TextUI\Button.h"
 #include "App\ShapeButton.h"
+#include <fstream>
+#include <experimental/filesystem>
 
 using namespace Shapes2D;
 using namespace TextUI;
+namespace fs = std::experimental::filesystem::v1;
 
 void TestShape(Shape<float> &shape) {
 	shape.Display();
@@ -19,6 +22,9 @@ class App {
 
 	MenuController menuController;
 	ShapeStore<float> shapeStore;
+	static const string saveDirectory;
+	static const string saveExtension;
+	string currentSaveFilename;
 
 public:
 
@@ -33,7 +39,8 @@ public:
 				shared_ptr<Widget>(new Button("Display Selected", [=]() {GoToMenu("Display Selected"); })),
 				shared_ptr<Widget>(new Button("Move", [=]() {GoToMoveMenu(); })),
 				shared_ptr<Widget>(new Button("Scale", [=]() {GoToScaleMenu(); })),
-				shared_ptr<Widget>(new Button("Save", [=]() {shapeStore.Save(cout); system("PAUSE"); })),
+				shared_ptr<Widget>(new Button("Save", [=]() {Save(); })),
+				shared_ptr<Widget>(new Button("Save As", [=]() {SaveAs(); })),
 				shared_ptr<Widget>(new Button("Load", [=]() {shapeStore.Load(cin); system("PAUSE"); })),
 				shared_ptr<Widget>(new Button("Exit", [=]() {Stop(); }))
 			}
@@ -138,7 +145,45 @@ public:
 		shapeStore.DisplayShapes(type);
 		system("PAUSE");
 	}
+
+	void Save() {
+		if (!currentSaveFilename.empty()) {
+			Save(currentSaveFilename);
+		}
+		else {
+			SaveAs();
+		}
+	}
+
+	void SaveAs() {
+		cout << "Save name: ";
+		cin >> currentSaveFilename;
+		cout << endl;
+		Save();
+	}
+
+	void Save(string filename) {
+		//cout << CurrentSavePath();
+		fs::create_directory(saveDirectory);
+		std::ofstream file(CurrentSavePath(), std::ofstream::trunc);
+		if (file.good()) {
+			shapeStore.Save(file);
+		}
+		else {
+			cout << "Bad file\n";
+			system("PAUSE");
+		}
+		file.close();
+	}
+
+private:
+	string CurrentSavePath() {
+		return saveDirectory + currentSaveFilename + saveExtension;
+	}
 };
+
+const string App::saveDirectory = "Saves/";
+const string App::saveExtension = ".shapes2d";
 
 int main() {
 
