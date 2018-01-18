@@ -29,6 +29,12 @@ namespace Shapes2D {
 			}
 		}
 
+		void DisplayShapes(ShapeType type) {
+			for (auto&& node : list) {
+				if(node.shapeType == type) node.shape->Display();
+			}
+		}
+
 		const ShapeList& GetShapeList() {
 			return list;
 		}

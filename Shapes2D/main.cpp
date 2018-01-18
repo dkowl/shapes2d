@@ -30,6 +30,7 @@ public:
 				shared_ptr<Widget>(new Button("Add",  [=]() {GoToMenu("Add Shape"); })),
 				shared_ptr<Widget>(new Button("Delete",  [=]() {GoToDeleteMenu(); })),
 				shared_ptr<Widget>(new Button("Display", [=]() {DisplayShapes(); })),
+				shared_ptr<Widget>(new Button("Display Selected", [=]() {GoToMenu("Display Selected"); })),
 				shared_ptr<Widget>(new Button("Exit", [=]() {Stop(); }))
 			}
 		),
@@ -42,6 +43,18 @@ public:
 				shared_ptr<Widget>(new Button("Trapezoid", [=]() {AddShape(TRAPEZOID); })),
 				shared_ptr<Widget>(new Button("Parallelogram", [=]() {AddShape(PARALLELOGRAM); })),
 				shared_ptr<Widget>(new Button("Circle", [=]() {AddShape(CIRCLE); })),
+				shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })),
+			}
+		),
+		Menu(
+			"Display Selected",
+			Menu::WidgetList{
+				shared_ptr<Widget>(new Button("Squares", [=]() {DisplayShapes(SQUARE); })),
+				shared_ptr<Widget>(new Button("Rectangles", [=]() {DisplayShapes(RECTANGLE); })),
+				shared_ptr<Widget>(new Button("Triangles", [=]() {DisplayShapes(TRIANGLE); })),
+				shared_ptr<Widget>(new Button("Trapezoids", [=]() {DisplayShapes(TRAPEZOID); })),
+				shared_ptr<Widget>(new Button("Parallelograms", [=]() {DisplayShapes(PARALLELOGRAM); })),
+				shared_ptr<Widget>(new Button("Circles", [=]() {DisplayShapes(CIRCLE); })),
 				shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })),
 			}
 		),
@@ -77,7 +90,14 @@ public:
 	}
 
 	void DisplayShapes() {
+		cout << endl;
 		shapeStore.DisplayShapes();
+		system("PAUSE");
+	}
+
+	void DisplayShapes(ShapeType type) {
+		cout << endl;
+		shapeStore.DisplayShapes(type);
 		system("PAUSE");
 	}
 };
