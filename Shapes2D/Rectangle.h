@@ -8,6 +8,8 @@ namespace Shapes2D {
 	public:
 		using Shape::Move;
 
+		Rectangle() {}
+
 		Rectangle(Vector2 A, TFloat a, TFloat b) :
 			A(A),
 			a(a),

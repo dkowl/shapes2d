@@ -160,6 +160,39 @@ namespace Shapes2D {
 			cin >> r;
 			return new Circle<TFloat>(MakeVector2(Ox, Oy), r);
 		}
+
+		static Shape<TFloat>* LoadShape(std::istream &is, ShapeType shapeType) {
+			cout << "Loading Shape" << endl;
+
+			Shape<TFloat> *result;
+			switch (shapeType) {
+			case SQUARE:
+				result = new Square<TFloat>();
+				break;
+			case RECTANGLE:
+				result = new Rectangle<TFloat>();
+				break;
+			case TRIANGLE:
+				result = new Triangle<TFloat>();
+				break;
+			case TRAPEZOID:
+				result = new Trapezoid<TFloat>();
+				break;
+			case PARALLELOGRAM:
+				result = new Parallelogram<TFloat>();
+				break;
+			case CIRCLE:
+				result = new Circle<TFloat>();
+				break;
+			default:
+				result = new Square<TFloat>();
+				break;
+			}
+
+			is >> *result;
+			result->Display();
+			return result;
+		}
 		
 	};
 }

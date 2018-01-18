@@ -10,6 +10,8 @@ namespace Shapes2D {
 	public:
 		using Shape::Move;
 
+		Trapezoid() {}
+
 		Trapezoid(Vector2 A, Vector2 B, Vector2 C, TFloat a) :
 			A(A),
 			B(B),

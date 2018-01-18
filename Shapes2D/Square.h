@@ -8,6 +8,8 @@ namespace Shapes2D {
 	public:
 		using Shape::Move;
 
+		Square() {}
+
 		Square(Vector2 A, TFloat a) :
 			A(A),
 			a(a)

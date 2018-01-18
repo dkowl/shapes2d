@@ -1,6 +1,7 @@
 #pragma once
 #include "List.h"
 #include "ShapeWizard.h"
+#include <memory>
 
 namespace Shapes2D {
 
@@ -10,13 +11,14 @@ namespace Shapes2D {
 		class ListNode;
 
 		typedef List<ListNode> ShapeList;
+		typedef std::shared_ptr<Shape<TFloat>> ShapePtr;
 
 		ShapeList list;
 
 	public:	
 
 		void AddShape(ShapeType shapeType) {
-			list.Add(ListNode(ShapeWizard<TFloat>::CreateShape(shapeType), shapeType));
+			list.Add(ListNode(ShapePtr(ShapeWizard<TFloat>::CreateShape(shapeType)), shapeType));
 		}
 
 		void DeleteShape(const ListNode& shape) {
@@ -47,22 +49,61 @@ namespace Shapes2D {
 			return list;
 		}
 
+		void Save(std::ostream &os) {
+			for (auto&& shape : list) {
+				shape.Save(os);
+				os << endl;
+			}
+		}
+
+		void Load(std::istream &is) {
+			int peekResult;
+			while (true) {
+				peekResult = (is >> std::ws).peek();
+				if (peekResult == EOF) {
+					is.ignore();
+					is.clear();
+					break;
+				}
+				ListNode listNode(is);
+				list.Add(listNode);
+			}
+		}
+
+	public:
 		class ListNode {
 		public:
 
-			Shape<TFloat> *shape;
+			ShapePtr shape;
 			ShapeType shapeType;
 			int id;
 
-			ListNode(Shape<TFloat> *shape, ShapeType shapeType) :
-				shape(shape),
-				shapeType(shapeType),
+			ListNode(std::istream &is) :
 				id(GetNextId())
+			{
+				Load(is);
+			}
+
+			ListNode(ShapePtr shape, ShapeType shapeType) :
+				id(GetNextId()),
+				shape(shape),
+				shapeType(shapeType)
 			{
 			}
 
 			bool operator==(const ListNode &other) const {
 				return id == other.id;
+			}
+
+			void Save(std::ostream &os) const {
+				os << shapeType << " " << *shape;
+			}
+
+			void Load(std::istream &is) {
+				int typeCode;
+				is >> typeCode;
+				shapeType = (ShapeType) typeCode;
+				shape = ShapePtr(ShapeWizard<TFloat>::LoadShape(is, shapeType));
 			}
 
 		private:

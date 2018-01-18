@@ -9,6 +9,8 @@ namespace Shapes2D {
 	public:
 		using Shape::Move;
 
+		Circle() {}
+
 		Circle(Vector2 O, TFloat r) :
 			O(O),
 			r(r)

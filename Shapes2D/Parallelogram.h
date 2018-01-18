@@ -10,6 +10,8 @@ namespace Shapes2D {
 	public:
 		using Shape::Move;
 
+		Parallelogram() {}
+
 		Parallelogram(Vector2 A, Vector2 B, Vector2 C) :
 			A(A),
 			B(B),

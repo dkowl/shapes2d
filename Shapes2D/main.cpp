@@ -33,6 +33,8 @@ public:
 				shared_ptr<Widget>(new Button("Display Selected", [=]() {GoToMenu("Display Selected"); })),
 				shared_ptr<Widget>(new Button("Move", [=]() {GoToMoveMenu(); })),
 				shared_ptr<Widget>(new Button("Scale", [=]() {GoToScaleMenu(); })),
+				shared_ptr<Widget>(new Button("Save", [=]() {shapeStore.Save(cout); system("PAUSE"); })),
+				shared_ptr<Widget>(new Button("Load", [=]() {shapeStore.Load(cin); system("PAUSE"); })),
 				shared_ptr<Widget>(new Button("Exit", [=]() {Stop(); }))
 			}
 		),
@@ -140,12 +142,12 @@ public:
 
 int main() {
 
-	/*App app;
-	app.Start();*/
+	App app;
+	app.Start();
 
-	Square<float> square = MakeSquare(1.0f, 2.0f, 3.0f);
+	/*Square<float> square = MakeSquare(1.0f, 2.0f, 3.0f);
 	cin >> square;
-	cout << square;
+	cout << square;*/
 
 	system("PAUSE");
 	return 0;
