@@ -2,6 +2,7 @@
 #include "Signal\Signal.h"
 #include "TextUI\MenuController.h"
 #include "TextUI\Button.h"
+#include "App\ShapeButton.h"
 
 using namespace Shapes2D;
 using namespace TextUI;
@@ -63,7 +64,7 @@ public:
 	void GoToDeleteMenu() {
 		Menu::WidgetList widgetList;
 		for (auto&& shape : shapeStore.GetShapeList()) {
-			widgetList.Add(shared_ptr<Widget>(new Button(shape.shape->Name(), [=]() {shapeStore.DeleteShape(shape); })));
+			widgetList.Add(shared_ptr<Widget>(new ShapeButton(shape.shape->Name(), [=]() {shapeStore.DeleteShape(shape); }, *(shape.shape), true)));
 		}
 		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
 		Menu menu("Delete", widgetList);

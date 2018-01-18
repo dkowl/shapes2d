@@ -13,6 +13,7 @@ namespace TextUI {
 
 	class Button : public Widget {
 
+	protected:
 		bool isSelected;
 
 	public:

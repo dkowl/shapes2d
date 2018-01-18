@@ -4,7 +4,7 @@ namespace TextUI {
 
 	class Widget {
 
-	private:
+	protected:
 		bool selectable;
 		bool clickable;
 
