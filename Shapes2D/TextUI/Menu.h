@@ -65,7 +65,10 @@ namespace TextUI {
 			if (isSelectable) {
 				auto i = selectedIter;
 				i++;
-				for (; i != widgets.end(); i++) {
+				for (; ; i++) {
+					if (i == widgets.end()) {
+						i = widgets.begin();
+					}
 					if ((*i)->IsSelectable()) {
 						Select(i);
 						break;
@@ -77,13 +80,15 @@ namespace TextUI {
 		void SelectPrevious() {
 			if (isSelectable) {
 				auto i = selectedIter;
-				i--;
+				if (i == widgets.begin()) {
+					i = --widgets.end();
+				}
+				else i--;
 				for (; ; i--) {
 					if ((*i)->IsSelectable()) {
 						Select(i);
 						break;
 					}
-					if (i == widgets.begin()) break;
 				}
 			}
 		}
@@ -96,6 +101,7 @@ namespace TextUI {
 
 		void Display() {
 			system("cls");
+			cout << name << endl << endl;
 			for (auto&& widget : widgets) {
 				widget->Display();
 			}

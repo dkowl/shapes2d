@@ -41,7 +41,7 @@ public:
 				shared_ptr<Widget>(new Button("Scale", [=]() {GoToScaleMenu(); })),
 				shared_ptr<Widget>(new Button("Save", [=]() {Save(); })),
 				shared_ptr<Widget>(new Button("Save As", [=]() {SaveAs(); })),
-				shared_ptr<Widget>(new Button("Load", [=]() {shapeStore.Load(cin); system("PAUSE"); })),
+				shared_ptr<Widget>(new Button("Load", [=]() {Load(); })),
 				shared_ptr<Widget>(new Button("Exit", [=]() {Stop(); }))
 			}
 		),
@@ -156,6 +156,20 @@ public:
 	}
 
 	void SaveAs() {
+		Menu::WidgetList widgetList;
+		for (auto&& entry : fs::directory_iterator(saveDirectory)) {
+			if (fs::is_regular_file(entry) && entry.path().extension().string() == saveExtension) {
+				widgetList.Add(shared_ptr<Widget>(new Button(entry.path().filename().string(), [=]() { Save(entry.path().filename().string()); })));
+			}
+		}
+		widgetList.Add(shared_ptr<Widget>(new Button("New save", [=]() { SaveAsNew();})));
+		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		Menu menu("Save As", widgetList);
+		menuController.AddOrReplaceMenu(menu);
+		menuController.SwitchMenu("Save As");
+	}
+
+	void SaveAsNew() {
 		cout << "Save name: ";
 		cin >> currentSaveFilename;
 		cout << endl;
@@ -168,6 +182,37 @@ public:
 		std::ofstream file(CurrentSavePath(), std::ofstream::trunc);
 		if (file.good()) {
 			shapeStore.Save(file);
+			cout << "Save successfull\n";
+			system("PAUSE");
+			GoToMenu("Main");
+		}
+		else {
+			cout << "Bad file\n";
+			system("PAUSE");
+		}
+		file.close();
+	}
+
+	void Load() {
+		Menu::WidgetList widgetList;
+		for (auto&& entry : fs::directory_iterator(saveDirectory)) {
+			if (fs::is_regular_file(entry) && entry.path().extension().string() == saveExtension) {
+				widgetList.Add(shared_ptr<Widget>(new Button(entry.path().filename().string(), [=]() { Load(entry.path().filename().string()); })));
+			}
+		}
+		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		Menu menu("Load", widgetList);
+		menuController.AddOrReplaceMenu(menu);
+		menuController.SwitchMenu("Load");
+	}
+
+	void Load(string filename) {
+		std::ifstream file(saveDirectory + filename);
+		if (file.good()) {
+			shapeStore.Load(file);
+			cout << "Load successfull\n";
+			system("PAUSE");
+			GoToMenu("Main");
 		}
 		else {
 			cout << "Bad file\n";
@@ -178,7 +223,11 @@ public:
 
 private:
 	string CurrentSavePath() {
-		return saveDirectory + currentSaveFilename + saveExtension;
+		return SavePath(currentSaveFilename);
+	}
+
+	string SavePath(string filename) {
+		return saveDirectory + filename + saveExtension;
 	}
 };
 
@@ -190,10 +239,5 @@ int main() {
 	App app;
 	app.Start();
 
-	/*Square<float> square = MakeSquare(1.0f, 2.0f, 3.0f);
-	cin >> square;
-	cout << square;*/
-
-	system("PAUSE");
 	return 0;
 }
