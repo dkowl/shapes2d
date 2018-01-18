@@ -18,7 +18,7 @@ namespace TextUI {
 		std::string name;
 		WidgetList widgets;
 		bool isSelectable;
-		WidgetList::Iterator selectedIter;
+		WidgetList::Iterator<> selectedIter;
 
 	public:
 		Menu() :
@@ -26,28 +26,49 @@ namespace TextUI {
 		{
 		}
 
-		Menu(std::string name, WidgetList widgets) :
+		Menu(std::string name, const WidgetList &widgetList) :
 			name(name),
-			widgets(widgets),
+			widgets(widgetList),
 			isSelectable(false),
-			selectedIter(this->widgets.begin())
+			selectedIter(widgets.begin())
 		{ 
-			cout << "lul";
 			for (auto i = widgets.begin(); i != widgets.end(); i++) {
 				if ((*i)->IsSelectable()) {
-					selectedIter = i;
+					Select(i);
 					isSelectable = true;
+					break;
 				}
 			}
+		}
+
+		Menu(Menu const &other) :
+			Menu(other.name, other.widgets)
+		{
+		}
+
+		Menu& operator=(Menu const &other) {
+			name = other.name;
+			widgets = other.widgets;
+			isSelectable = false;
+			selectedIter = widgets.begin();
+			for (auto i = widgets.begin(); i != widgets.end(); i++) {
+				if ((*i)->IsSelectable()) {
+					Select(i);
+					isSelectable = true;
+					break;
+				}
+			}
+			return *this;
 		}
 
 		void SelectNext() {
 			if (isSelectable) {
 				auto i = selectedIter;
 				i++;
-				for (; i != selectedIter; i++) {
+				for (; i != widgets.end(); i++) {
 					if ((*i)->IsSelectable()) {
 						Select(i);
+						break;
 					}
 				}
 			}
@@ -57,10 +78,12 @@ namespace TextUI {
 			if (isSelectable) {
 				auto i = selectedIter;
 				i--;
-				for (; i != selectedIter; i--) {
+				for (; ; i--) {
 					if ((*i)->IsSelectable()) {
 						Select(i);
+						break;
 					}
+					if (i == widgets.begin()) break;
 				}
 			}
 		}
@@ -78,12 +101,12 @@ namespace TextUI {
 			}
 		}
 
-		std::string Name() {
+		std::string Name() const {
 			return name;
 		}
 
 	private:
-		void Select(WidgetList::Iterator iter) {
+		void Select(WidgetList::Iterator<> iter) {
 			(*selectedIter)->Deselect();
 			(*iter)->Select();
 			selectedIter = iter;

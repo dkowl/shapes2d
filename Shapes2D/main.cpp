@@ -14,57 +14,65 @@ void TestShape(Shape<float> &shape) {
 	shape.Display();
 }
 
-int main() {
-	/*auto square = MakeSquare(0.f, 0.f, 5.f);
-	auto rectangle = MakeRectangle(0.f, 0.f, 3.f, 5.f);
-	auto triangle = MakeTriangle(15.f, 15.f, 47.f, 40.f, 65.f, 20.f);
-	auto trapezoid = MakeTrapezoid(15.f, 15.f, 47.f, 40.f, 65.f, 20.f, 5.f);
-	auto parallelogram = MakeParallelogram(15.f, 15.f, 47.f, 40.f, 65.f, 20.f);
-	auto circle = MakeCircle(0.f, 0.f, 5.f);*/
+class App {
 
-	/*vector<Shape<float>*> shapes;
-	shapes.push_back(&square);
-	shapes.push_back(&rectangle);
-	shapes.push_back(&triangle);
-	shapes.push_back(&trapezoid);
-	shapes.push_back(&parallelogram);
-	shapes.push_back(&circle);*/
+	MenuController menuController;
+	ShapeStore<float> shapeStore;
 
-	/*List<Shape<float>*> shapes;
+public:
 
-	for (auto& shape : shapes) {
-		TestShape(*shape);
-	}*/
-
-	/*ShapeStore<float> shapeStore;
-
-	Signal<> signal;
-	signal.Connect([&]() {
-		shapeStore.AddShape(SQUARE);
-	});
-	signal.Emit();*/
-
-	/*MenuController menuController(
-		vector<Menu>{
+	App() :
+		menuController{
 		Menu(
 			"Main",
 			Menu::WidgetList{
-				shared_ptr<Widget>()
+				shared_ptr<Widget>(new Button("Add Shape",  [=]() {GoToMenu("Add Shape"); })),
+				shared_ptr<Widget>(new Button("Display Shapes", [=]() {DisplayShapes(); })),
+				shared_ptr<Widget>(new Button("Exit", [=]() {Stop(); }))
 			}
-			)
+		),
+		Menu(
+			"Add Shape",
+			Menu::WidgetList{
+				shared_ptr<Widget>(new Button("Square", [=]() {AddShape(SQUARE); })),
+				shared_ptr<Widget>(new Button("Rectangle", [=]() {AddShape(RECTANGLE); })),
+				shared_ptr<Widget>(new Button("Triangle", [=]() {AddShape(TRIANGLE); })),
+				shared_ptr<Widget>(new Button("Trapezoid", [=]() {AddShape(TRAPEZOID); })),
+				shared_ptr<Widget>(new Button("Parallelogram", [=]() {AddShape(PARALLELOGRAM); })),
+				shared_ptr<Widget>(new Button("Circle", [=]() {AddShape(CIRCLE); })),
+				shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })),
+			}
+		),
 		}
-	);*/
-	//Menu menu(
-	//	"Main",
-	Menu::WidgetList widgetList{
-		shared_ptr<Widget>(new Button("Button 1", []() {cout << "lol"; })),
-		shared_ptr<Widget>(new Button("Button 2", []() {cout << "lol2"; })),
-		shared_ptr<Widget>(new Button("Button 3", []() {cout << "lol3"; })),
-	};
-	//);
-	Menu menu("Main", widgetList);
-	menu.Display();
+	{
+	}
 
-	system("PAUSE");
+	void Start() {
+		menuController.Start();
+	}
+
+	void Stop() {
+		menuController.Stop();
+	}
+
+	void GoToMenu(string menuName) {
+		menuController.SwitchMenu(menuName);
+	}
+
+	void AddShape(ShapeType type) {
+		shapeStore.AddShape(type);
+	}
+
+	void DisplayShapes() {
+		shapeStore.DisplayShapes();
+		system("PAUSE");
+	}
+};
+
+int main() {
+
+	App app;
+	app.Start();
+
 	return 0;
 }

@@ -17,6 +17,12 @@ namespace Shapes2D {
 			list.Add(ListNode(ShapeWizard<TFloat>::CreateShape(shapeType), shapeType));
 		}
 
+		void DisplayShapes() {
+			for (auto&& node : list) {
+				node.shape->Display();
+			}
+		}
+
 		class ListNode {
 		public:
 			ListNode(Shape<TFloat> *shape, ShapeType shapeType) :

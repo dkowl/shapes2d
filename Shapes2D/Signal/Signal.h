@@ -21,7 +21,7 @@ public:
 	template<class T>
 	void Connect(T* instance, void(T::*func)(Args...)) {
 		Connect([=](Args...) {
-			instance->*func(Args...);
+			(instance->*func)(Args...);
 		});
 	}
 

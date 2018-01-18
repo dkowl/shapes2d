@@ -2,6 +2,19 @@
 
 #include <initializer_list>
 
+template<bool flag, class TTrue, class TFalse>
+struct Choose {};
+
+template<class TTrue, class TFalse>
+struct Choose<true, TTrue, TFalse> {
+	typedef TTrue Type;
+};
+
+template<class TTrue, class TFalse>
+struct Choose<false, TTrue, TFalse> {
+	typedef TFalse Type;
+};
+
 template<typename T>
 class List {
 
@@ -12,6 +25,7 @@ class List {
 
 public:
 
+	template<bool isConst = false>
 	class Iterator;
 
 	List() :
@@ -28,21 +42,24 @@ public:
 		}
 	}
 
-	List(List& other) :
+	~List() {
+		Clear();
+	}
+
+	List(List const &other) :
 		List()
 	{
-		for (auto elem : other) {
-			Add(elem);
+		for (auto elem = other.begin(); elem != other.end(); elem++) {
+			Add(*elem);
 		}
 	}
 
-	~List() {
-		Node* currentNode = head;
-		while (currentNode != nullptr) {
-			Node* nextNode = currentNode->next;
-			delete currentNode;
-			currentNode = nextNode;
+	List& operator=(const List& other) {
+		Clear();
+		for (auto elem = other.begin(); elem != other.end(); elem++) {
+			Add(*elem);
 		}
+		return *this;
 	}
 
 	void Add(const T &value) {
@@ -58,27 +75,61 @@ public:
 		}
 	}
 
-	Iterator begin() {
-		return Iterator(this, head);
+	void Clear() {
+		Node* currentNode = head;
+		while (currentNode != nullptr) {
+			Node* nextNode = currentNode->next;
+			delete currentNode;
+			currentNode = nextNode;
+		}
 	}
 
-	Iterator end() {
-		return Iterator(this, nullptr);
+	Iterator<true> begin() const {
+		return Iterator<true>(this, head);
 	}
 
+	Iterator<true> end() const {
+		return Iterator<true>(this, nullptr);
+	}
+
+	Iterator<false> begin() {
+		return Iterator<false>(this, head);
+	}
+
+	Iterator<false> end() {
+		return Iterator<false>(this, nullptr);
+	}
+
+	template<bool isConst>
 	class Iterator {
 		friend class List;
 
-		List *list;
-		Node *currentNode;
+		typedef typename Choose<isConst, const List*, List*>::Type Listptr;
+		typedef typename Choose<isConst, const Node*, Node*>::Type Nodeptr;
 
-		Iterator(List *list, Node *node) :
+		Listptr list;
+		Nodeptr currentNode;
+
+		Iterator(Listptr list, Nodeptr node) :
 			list(list),
 			currentNode(node)
 		{
 		}
 
 	public:
+		Iterator(const Iterator<false> &other) :
+			list(other.list),
+			currentNode(other.currentNode)
+		{
+		}
+
+		Iterator& operator=(const Iterator &other)
+		{
+			list = other.list;
+			currentNode = other.currentNode;
+			return *this;
+		}
+
 		bool operator==(const Iterator &b) {
 			return currentNode == b.currentNode;
 		}
@@ -118,8 +169,12 @@ public:
 			return temp;
 		}
 
-		T& operator *() {
-			return currentNode->value;
+		const T& operator *() {
+			return (*currentNode).value;
+		}
+
+		const T& operator *() const {
+			return (*currentNode).value;
 		}
 	};
 
@@ -136,6 +191,9 @@ private:
 			prev(nullptr),
 			next(nullptr)
 		{
+		}
+
+		~Node() {
 		}
 	};
 };

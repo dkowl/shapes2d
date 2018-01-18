@@ -13,17 +13,27 @@ namespace TextUI {
 
 	class Button : public Widget {
 
-		Signal<> onClickSignal;
-		string text;
 		bool isSelected;
 
 	public:
+		Signal<> onClickSignal;
+		string text;
+
 		Button(string text, Signal<>::Slot onClickSlot) :
 			Widget(true, true),
 			text(text),
 			isSelected(false)
 		{
 			onClickSignal.Connect(onClickSlot);
+		}
+
+		template<class T>
+		Button(string text, T* instance, void(T::*func)(void)) :
+			Widget(true, true),
+			text(text),
+			isSelected(false)
+		{
+			onClickSignal.Connect(instance, func);
 		}
 
 		virtual void Display() {
