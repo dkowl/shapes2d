@@ -23,6 +23,14 @@ namespace Shapes2D {
 			list.Delete(shape);
 		}
 
+		void MoveShape(const ListNode &shape, Vector2<TFloat> v) {
+			shape.shape->Move(v);
+		}
+
+		void ScaleShape(const ListNode &shape, TFloat x) {
+			shape.shape->Scale(x);
+		}
+
 		void DisplayShapes() {
 			for (auto&& node : list) {
 				node.shape->Display();
@@ -35,7 +43,7 @@ namespace Shapes2D {
 			}
 		}
 
-		const ShapeList& GetShapeList() {
+		ShapeList& GetShapeList() {
 			return list;
 		}
 

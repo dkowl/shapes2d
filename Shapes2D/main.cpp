@@ -31,6 +31,7 @@ public:
 				shared_ptr<Widget>(new Button("Delete",  [=]() {GoToDeleteMenu(); })),
 				shared_ptr<Widget>(new Button("Display", [=]() {DisplayShapes(); })),
 				shared_ptr<Widget>(new Button("Display Selected", [=]() {GoToMenu("Display Selected"); })),
+				shared_ptr<Widget>(new Button("Move", [=]() {GoToMoveMenu(); })),
 				shared_ptr<Widget>(new Button("Exit", [=]() {Stop(); }))
 			}
 		),
@@ -83,6 +84,24 @@ public:
 		Menu menu("Delete", widgetList);
 		menuController.AddOrReplaceMenu(menu);
 		menuController.SwitchMenu("Delete");
+	}
+
+	void GoToMoveMenu() {
+		Menu::WidgetList widgetList;
+		for (auto&& shape : shapeStore.GetShapeList()) {
+			widgetList.Add(shared_ptr<Widget>(new ShapeButton(shape.shape->Name(), [=]() {
+				float x, y;
+				cout << "Move vector - x coordinate: ";
+				cin >> x;
+				cout << "Move vector - y coordinate: ";
+				cin >> y;
+				shapeStore.MoveShape(shape, MakeVector2<float>(x, y)); 
+			}, *(shape.shape), false)));
+		}
+		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		Menu menu("Move", widgetList);
+		menuController.AddOrReplaceMenu(menu);
+		menuController.SwitchMenu("Move");
 	}
 
 	void AddShape(ShapeType type) {
