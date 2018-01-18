@@ -144,8 +144,8 @@ int main() {
 	app.Start();*/
 
 	Square<float> square = MakeSquare(1.0f, 2.0f, 3.0f);
-	square.Load(cin);
-	square.Save(cout);
+	cin >> square;
+	cout << square;
 
 	system("PAUSE");
 	return 0;

@@ -31,8 +31,8 @@ namespace Shapes2D {
 
 		virtual void Scale(TFloat x) = 0;
 
-		//virtual void Save(ostream &os) = 0;
-		//virtual void Load(istream &is) = 0;
+		virtual void Save(ostream &os) const = 0;
+		virtual void Load(istream &is) = 0;
 
 		virtual string Name() {
 			return "Shape";
@@ -57,5 +57,19 @@ namespace Shapes2D {
 	};
 
 	static const double PI = 3.14159265;
+
+	template<typename T>
+	std::ostream& operator<<(std::ostream& os, const Shape<T> &shape)
+	{
+		shape.Save(os);
+		return os;
+	}
+
+	template<typename T>
+	std::istream& operator>>(std::istream& is, Shape<T> &shape)
+	{
+		shape.Load(is);
+		return is;
+	}
 }
 

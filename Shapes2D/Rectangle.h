@@ -33,6 +33,14 @@ namespace Shapes2D {
 			b *= x;
 		}
 
+		void Save(ostream &os) const {
+			os << A << " " << a << " " << b;
+		}
+
+		void Load(istream &is) {
+			is >> A >> a >> b;
+		}
+
 		string Name() override {
 			return "Rectangle";
 		}

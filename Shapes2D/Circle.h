@@ -32,6 +32,14 @@ namespace Shapes2D {
 			r *= x;
 		}
 
+		void Save(ostream &os) const {
+			os << O << " " << r << " ";
+		}
+
+		void Load(istream &is) {
+			is >> O >> r;
+		}
+
 		string Name() override {
 			return "Circle";
 		}

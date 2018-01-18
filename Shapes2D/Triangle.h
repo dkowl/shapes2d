@@ -37,6 +37,14 @@ namespace Shapes2D {
 			C.Scale(center, x);
 		}
 
+		void Save(ostream &os) const {
+			os << A << " " << B << " " << C;
+		}
+
+		void Load(istream &is) {
+			is >> A >> B >> C;
+		}
+
 		string Name() override {
 			return "Triangle";
 		}
