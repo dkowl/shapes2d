@@ -16,9 +16,9 @@ namespace TextUI {
 		}
 
 		virtual void Display() = 0;
-		virtual void Select() = 0;
-		virtual void Deselect() = 0;
-		virtual void Click() = 0;
+		virtual void Select() {};
+		virtual void Deselect() {};
+		virtual void Click() {};
 
 		bool IsSelectable() {
 			return selectable;

@@ -137,6 +137,7 @@
     <ClInclude Include="TextUI\Button.h" />
     <ClInclude Include="TextUI\Menu.h" />
     <ClInclude Include="TextUI\MenuController.h" />
+    <ClInclude Include="TextUI\Spacer.h" />
     <ClInclude Include="TextUI\Widget.h" />
     <ClInclude Include="Trapezoid.h" />
     <ClInclude Include="Triangle.h" />

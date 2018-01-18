@@ -136,6 +136,12 @@ public:
 		}
 
 	public:
+		Iterator() :
+			list(nullptr),
+			currentNode(nullptr)
+		{
+		}
+
 		Iterator(const Iterator<false> &other) :
 			list(other.list),
 			currentNode(other.currentNode)

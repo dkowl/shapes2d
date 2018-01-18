@@ -92,5 +92,8 @@
     <ClInclude Include="App\ShapeButton.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
+    <ClInclude Include="TextUI\Spacer.h">
+      <Filter>Header Files\TextUI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

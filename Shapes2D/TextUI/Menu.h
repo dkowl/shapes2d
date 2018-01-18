@@ -19,6 +19,8 @@ namespace TextUI {
 		WidgetList widgets;
 		bool isSelectable;
 		WidgetList::Iterator<> selectedIter;
+		WidgetList::Iterator<> firstSelectable;
+		WidgetList::Iterator<> lastSelectable;
 
 	public:
 		Menu() :
@@ -32,13 +34,7 @@ namespace TextUI {
 			isSelectable(false),
 			selectedIter(widgets.begin())
 		{ 
-			for (auto i = widgets.begin(); i != widgets.end(); i++) {
-				if ((*i)->IsSelectable()) {
-					Select(i);
-					isSelectable = true;
-					break;
-				}
-			}
+			InitSelectables();
 		}
 
 		Menu(Menu const &other) :
@@ -51,13 +47,7 @@ namespace TextUI {
 			widgets = other.widgets;
 			isSelectable = false;
 			selectedIter = widgets.begin();
-			for (auto i = widgets.begin(); i != widgets.end(); i++) {
-				if ((*i)->IsSelectable()) {
-					Select(i);
-					isSelectable = true;
-					break;
-				}
-			}
+			InitSelectables();
 			return *this;
 		}
 
@@ -80,8 +70,8 @@ namespace TextUI {
 		void SelectPrevious() {
 			if (isSelectable) {
 				auto i = selectedIter;
-				if (i == widgets.begin()) {
-					i = --widgets.end();
+				if (i == firstSelectable) {
+					i = lastSelectable;
 				}
 				else i--;
 				for (; ; i--) {
@@ -112,6 +102,19 @@ namespace TextUI {
 		}
 
 	private:
+		void InitSelectables() {
+			for (auto i = widgets.begin(); i != widgets.end(); i++) {
+				if ((*i)->IsSelectable()) {
+					if (!isSelectable) {
+						Select(i);
+						isSelectable = true;
+						firstSelectable = i;
+					}
+					lastSelectable = i;
+				}
+			}
+		}
+
 		void Select(WidgetList::Iterator<> iter) {
 			(*selectedIter)->Deselect();
 			(*iter)->Select();

@@ -2,6 +2,7 @@
 #include "Signal\Signal.h"
 #include "TextUI\MenuController.h"
 #include "TextUI\Button.h"
+#include "TextUI\Spacer.h"
 #include "App\ShapeButton.h"
 #include <fstream>
 #include <experimental/filesystem>
@@ -54,6 +55,7 @@ public:
 				shared_ptr<Widget>(new Button("Trapezoid", [=]() {AddShape(TRAPEZOID); })),
 				shared_ptr<Widget>(new Button("Parallelogram", [=]() {AddShape(PARALLELOGRAM); })),
 				shared_ptr<Widget>(new Button("Circle", [=]() {AddShape(CIRCLE); })),
+				shared_ptr<Widget>(new Spacer()),
 				shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })),
 			}
 		),
@@ -66,6 +68,7 @@ public:
 				shared_ptr<Widget>(new Button("Trapezoids", [=]() {DisplayShapes(TRAPEZOID); })),
 				shared_ptr<Widget>(new Button("Parallelograms", [=]() {DisplayShapes(PARALLELOGRAM); })),
 				shared_ptr<Widget>(new Button("Circles", [=]() {DisplayShapes(CIRCLE); })),
+				shared_ptr<Widget>(new Spacer()),
 				shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })),
 			}
 		),
@@ -90,7 +93,7 @@ public:
 		for (auto&& shape : shapeStore.GetShapeList()) {
 			widgetList.Add(shared_ptr<Widget>(new ShapeButton(shape.shape->Name(), [=]() {shapeStore.DeleteShape(shape); }, *(shape.shape), true)));
 		}
-		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		AddBackButton(widgetList);
 		Menu menu("Delete", widgetList);
 		menuController.AddOrReplaceMenu(menu);
 		menuController.SwitchMenu("Delete");
@@ -108,7 +111,7 @@ public:
 				shapeStore.MoveShape(shape, MakeVector2<float>(x, y)); 
 			}, *(shape.shape), false)));
 		}
-		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		AddBackButton(widgetList);
 		Menu menu("Move", widgetList);
 		menuController.AddOrReplaceMenu(menu);
 		menuController.SwitchMenu("Move");
@@ -124,7 +127,7 @@ public:
 				shapeStore.ScaleShape(shape, x);
 			}, *(shape.shape), false)));
 		}
-		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		AddBackButton(widgetList);
 		Menu menu("Move", widgetList);
 		menuController.AddOrReplaceMenu(menu);
 		menuController.SwitchMenu("Move");
@@ -163,7 +166,7 @@ public:
 			}
 		}
 		widgetList.Add(shared_ptr<Widget>(new Button("New save", [=]() { SaveAsNew();})));
-		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		AddBackButton(widgetList);
 		Menu menu("Save As", widgetList);
 		menuController.AddOrReplaceMenu(menu);
 		menuController.SwitchMenu("Save As");
@@ -177,7 +180,6 @@ public:
 	}
 
 	void Save(string filename) {
-		//cout << CurrentSavePath();
 		fs::create_directory(saveDirectory);
 		std::ofstream file(CurrentSavePath(), std::ofstream::trunc);
 		if (file.good()) {
@@ -200,7 +202,7 @@ public:
 				widgetList.Add(shared_ptr<Widget>(new Button(entry.path().filename().string(), [=]() { Load(entry.path().filename().string()); })));
 			}
 		}
-		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
+		AddBackButton(widgetList);
 		Menu menu("Load", widgetList);
 		menuController.AddOrReplaceMenu(menu);
 		menuController.SwitchMenu("Load");
@@ -228,6 +230,11 @@ private:
 
 	string SavePath(string filename) {
 		return saveDirectory + filename + saveExtension;
+	}
+
+	void AddBackButton(Menu::WidgetList &widgetList) {
+		widgetList.Add(shared_ptr<Widget>(new Spacer()));
+		widgetList.Add(shared_ptr<Widget>(new Button("Back to Main Menu", [=]() {GoToMenu("Main"); })));
 	}
 };
 
